@@ -1,0 +1,18 @@
+{
+  "Group": "com.shanebeestudios",
+  "Name": "CoreHytale",
+  "Version": "$pluginVersion",
+  "Description": "Plugin full of random commands",
+  "Authors": [
+    {
+      "Name": "ShaneBee"
+    }
+  ],
+  "Website": "null",
+  "ServerVersion": "*",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "com.shanebeestudios.core.plugin.CorePlugin",
+  "IncludesAssetPack": false
+}
