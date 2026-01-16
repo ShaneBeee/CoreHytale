@@ -49,7 +49,7 @@ public class RTPCommand extends AbstractPlayerCommand {
             if (fluid == null || fluid == Fluid.EMPTY) {
                 Transform transform = playerRef.getTransform();
                 transform.setPosition(new Vector3d(x + 0.5, height + 1, z + 0.5));
-                Teleport teleport = new Teleport(transform).withHeadRotation(playerRef.getHeadRotation());
+                Teleport teleport = Teleport.createForPlayer(transform);
                 store.addComponent(ref, Teleport.getComponentType(), teleport);
                 Utils.sendMessage(playerRef, "You have been teleported to a random location.");
             } else {

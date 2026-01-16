@@ -5,6 +5,7 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
@@ -36,7 +37,7 @@ public class TopCommand extends AbstractPlayerCommand {
         }
         short height = chunk.getHeight((int) x, (int) z);
 
-        Teleport teleport = new Teleport(world, new Transform(new Vector3d(x, height + 1, z)));
+        Teleport teleport = new Teleport(world, new Vector3d(x, height + 1, z), Vector3f.ZERO);
         store.addComponent(ref, Teleport.getComponentType(), teleport);
         playerRef.sendMessage(Message.raw("Teleporting..."));
 
