@@ -10,16 +10,23 @@ repositories {
 }
 
 dependencies {
-    implementation(files("/Users/ShaneBee/Desktop/Server/Hytale/HytaleServer.jar"))
+    implementation(files("/Users/ShaneBee/Desktop/Server/Hytale/Creative/HytaleServer.jar"))
     implementation("org.jetbrains:annotations:26.0.2")
 }
 
 tasks {
-    register("server", Copy::class) {
+    register("survival-server", Copy::class) {
         dependsOn("jar")
         from("build/libs") {
             include("CoreHytale-*.jar")
-            destinationDir = file("/Users/ShaneBee/Desktop/Server/Hytale/mods/")
+            destinationDir = file("/Users/ShaneBee/Desktop/Server/Hytale/Survival/mods/")
+        }
+    }
+    register("creative-server", Copy::class) {
+        dependsOn("jar")
+        from("build/libs") {
+            include("CoreHytale-*.jar")
+            destinationDir = file("/Users/ShaneBee/Desktop/Server/Hytale/Creative/mods/")
         }
     }
     processResources {
