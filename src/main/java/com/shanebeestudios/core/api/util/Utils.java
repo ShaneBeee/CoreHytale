@@ -27,16 +27,20 @@ public class Utils {
         receiver.sendMessage(mess);
     }
 
+    public static void log(Level level, String message) {
+        CorePlugin.getInstance().getLogger().at(level).log( message);
+    }
+
     public static void log(String message) {
-        CorePlugin.getInstance().getLogger().at(Level.INFO).log( message);
+        log(Level.INFO, message);
     }
 
     public static void error(String message) {
-        CorePlugin.getInstance().getLogger().at(Level.SEVERE).log( message);
+        log(Level.SEVERE, message);
     }
 
     public static void warn(String message) {
-        CorePlugin.getInstance().getLogger().at(Level.WARNING).log(message);
+        log(Level.WARNING, message);
     }
 
 }
