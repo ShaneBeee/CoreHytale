@@ -32,6 +32,7 @@ public class RTPCommand extends AbstractPlayerCommand {
                            @NonNullDecl Ref<EntityStore> ref, @NonNullDecl PlayerRef playerRef,
                            @NonNullDecl World world) {
 
+        Utils.sendMessage(playerRef, "Checking for a place to teleport you to.");
         tryTeleport(world, playerRef, ref, store, 1);
     }
 
@@ -44,19 +45,24 @@ public class RTPCommand extends AbstractPlayerCommand {
         int z = this.random.nextInt(-100000, 100000);
 
         world.getChunkAsync(x >> 5, z >> 5).thenAccept(worldChunk -> {
-            short height = worldChunk.getHeight(x, z);
-            Fluid fluid = WorldUtils.getFluid(world, x, height + 1, z);
-            if (fluid == null || fluid == Fluid.EMPTY) {
-                Transform transform = playerRef.getTransform();
-                transform.setPosition(new Vector3d(x + 0.5, height + 1, z + 0.5));
-                Teleport teleport = Teleport.createForPlayer(transform);
-                store.addComponent(ref, Teleport.getComponentType(), teleport);
-                Utils.sendMessage(playerRef, "You have been teleported to a random location.");
-            } else {
-                Utils.sendMessage(playerRef, "Trying to find another safe space.");
-                tryTeleport(world, playerRef, ref, store, tries + 1);
-            }
-        });
+                short height = worldChunk.getHeight(x, z);
+                Fluid fluid = WorldUtils.getFluid(world, x, height + 1, z);
+                if (fluid == null || fluid == Fluid.EMPTY) {
+                    Transform transform = playerRef.getTransform();
+                    transform.setPosition(new Vector3d(x + 0.5, height + 1, z + 0.5));
+                    Teleport teleport = Teleport.createForPlayer(transform);
+                    store.addComponent(ref, Teleport.getComponentType(), teleport);
+                    Utils.sendMessage(playerRef, "You have been teleported to a random location.");
+                } else {
+                    Utils.sendMessage(playerRef, "Trying to find another safe space.");
+                    tryTeleport(world, playerRef, ref, store, tries + 1);
+                }
+            })
+            .exceptionally(e -> {
+                Utils.sendMessage(playerRef, "Failed to load a chunk, see console for more info.");
+                Utils.error("Failed to load chunk while teleporting: " + e.getMessage());
+                return null;
+            });
     }
 
 }
