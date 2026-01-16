@@ -19,6 +19,7 @@ public class TopCommand extends AbstractPlayerCommand {
 
     public TopCommand() {
         super("top", "Teleport to the top of the world.");
+        requirePermission("core.commands.top");
     }
 
     @Override

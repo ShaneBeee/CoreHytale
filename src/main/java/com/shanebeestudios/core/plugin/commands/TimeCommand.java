@@ -17,6 +17,7 @@ public class TimeCommand extends AbstractWorldCommand {
 
     protected TimeCommand() {
         super("now", "Prints the current time in a nicer format.");
+        requirePermission("core.commands.now");
     }
 
     @Override
