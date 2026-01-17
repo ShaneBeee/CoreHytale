@@ -4,6 +4,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.shanebeestudios.core.api.util.Utils;
 import com.shanebeestudios.core.plugin.commands.CommandHandler;
+import com.shanebeestudios.core.plugin.events.EventHandler;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 @SuppressWarnings("unused")
@@ -20,6 +21,7 @@ public class CorePlugin extends JavaPlugin {
     protected void setup() {
         Utils.log("Setting up CorePlugin...");
         CommandHandler.registerCommands(getCommandRegistry());
+        EventHandler.registerEvents(getEventRegistry());
     }
 
     @Override
