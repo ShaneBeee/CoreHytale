@@ -22,25 +22,31 @@ public class Utils {
      * @param receiver Receiver to send a message to
      * @param message  Message to send
      */
-    public static void sendMessage(IMessageReceiver receiver, String message) {
+    public static void sendMessage(IMessageReceiver receiver, String message, Object... args) {
+        if (args.length > 0) {
+            message = String.format(message, args);
+        }
         Message mess = Message.empty().insert(CORE_PREFIX).insert(Message.raw(message));
         receiver.sendMessage(mess);
     }
 
-    public static void log(Level level, String message) {
+    public static void log(Level level, String message, Object... args) {
+        if (args.length > 0) {
+            message = String.format(message, args);
+        }
         CorePlugin.getInstance().getLogger().at(level).log( message);
     }
 
-    public static void log(String message) {
-        log(Level.INFO, message);
+    public static void log(String message, Object... args) {
+        log(Level.INFO, message, args);
     }
 
-    public static void error(String message) {
-        log(Level.SEVERE, message);
+    public static void error(String message, Object... args) {
+        log(Level.SEVERE, message, args);
     }
 
-    public static void warn(String message) {
-        log(Level.WARNING, message);
+    public static void warn(String message, Object... args) {
+        log(Level.WARNING, message, args);
     }
 
 }
