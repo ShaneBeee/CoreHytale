@@ -25,7 +25,7 @@ public class TimeCommand extends AbstractWorldCommand {
         WorldTimeResource worldTimeResource = store.getResource(WorldTimeResource.getResourceType());
         Instant gameTime = worldTimeResource.getGameTime();
 
-        String pausedMessage = world.getWorldConfig().isGameTimePaused() ? "paused" : "unpaused";
+        String pausedMessage = (world.getWorldConfig().isGameTimePaused() || world.isPaused()) ? "paused" : "unpaused";
         String name = world.getName();
         String format = DateTimeFormatter.ofPattern("u/MM/dd h:mm:ss a")
             .withZone(ZoneId.of("UTC"))
