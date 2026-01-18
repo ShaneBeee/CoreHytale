@@ -2,17 +2,16 @@ package com.shanebeestudios.core.plugin.commands;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.fluid.Fluid;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
-import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.shanebeestudios.core.api.util.EntityUtils;
 import com.shanebeestudios.core.api.util.Utils;
 import com.shanebeestudios.core.api.util.WorldUtils;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -70,10 +69,8 @@ public class RTPCommand extends AbstractPlayerCommand {
                             return;
                         }
                     }
-                    Transform transform = playerRef.getTransform().clone();
-                    transform.setPosition(new Vector3d(x + 0.5, height + 1, z + 0.5));
-                    Teleport teleport = Teleport.createForPlayer(transform);
-                    store.addComponent(ref, Teleport.getComponentType(), teleport);
+
+                    EntityUtils.teleportPlayer(store, playerRef, world, new Vector3d(x + 0.5, height + 1, z + 0.5), playerRef.getTransform().getRotation());
                     Utils.sendMessage(playerRef, "You have been teleported to a random location.");
                 } else {
                     Utils.sendMessage(playerRef, "Trying to find another safe space.");

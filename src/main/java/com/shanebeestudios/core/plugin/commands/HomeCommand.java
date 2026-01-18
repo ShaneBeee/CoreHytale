@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.shanebeestudios.core.api.util.EntityUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class HomeCommand extends AbstractPlayerCommand {
@@ -31,8 +32,7 @@ public class HomeCommand extends AbstractPlayerCommand {
         if (respawnPoints != null && respawnPoints.length > 0) {
             PlayerRespawnPointData respawnPoint = respawnPoints[0];
             Vector3d pos = respawnPoint.getRespawnPosition();
-            Teleport teleport = Teleport.createForPlayer(world, pos, Vector3f.ZERO);
-            store.addComponent(ref, Teleport.getComponentType(), teleport);
+            EntityUtils.teleportPlayer(store, playerRef, world, pos, null);
         }
     }
 

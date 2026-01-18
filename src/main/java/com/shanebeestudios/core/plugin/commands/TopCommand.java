@@ -5,15 +5,14 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
-import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.shanebeestudios.core.api.util.EntityUtils;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 public class TopCommand extends AbstractPlayerCommand {
@@ -37,8 +36,7 @@ public class TopCommand extends AbstractPlayerCommand {
         }
         short height = chunk.getHeight((int) x, (int) z);
 
-        Teleport teleport = new Teleport(world, new Vector3d(x, height + 1, z), Vector3f.ZERO);
-        store.addComponent(ref, Teleport.getComponentType(), teleport);
+        EntityUtils.teleportPlayer(store, playerRef, world, new Vector3d(x, height + 1, z), null);
         playerRef.sendMessage(Message.raw("Teleporting..."));
 
     }
