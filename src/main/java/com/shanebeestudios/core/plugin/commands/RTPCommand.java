@@ -4,6 +4,8 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.protocol.BlockMaterial;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.fluid.Fluid;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand;
@@ -48,7 +50,27 @@ public class RTPCommand extends AbstractPlayerCommand {
                 short height = worldChunk.getHeight(x, z);
                 Fluid fluid = WorldUtils.getFluid(world, x, height + 1, z);
                 if (fluid == null || fluid == Fluid.EMPTY) {
-                    Transform transform = playerRef.getTransform();
+                    BlockType block = worldChunk.getBlockType(x, height, z);
+                    if (block == null) return; // This shouldn't happen
+
+                    BlockMaterial material = block.getMaterial();
+                    if (material != BlockMaterial.Solid) {
+                        // Handle when a player is placed on a non-solid block like Leaves
+                        for (int i = height; i > 100; i--) {
+                            height--;
+                            BlockType blockType = worldChunk.getBlockType(x, height, z);
+                            if (blockType != null && blockType.getMaterial() == BlockMaterial.Solid) {
+                                break;
+                            }
+                        }
+                        // If we go too low and can't find a safe space, try again
+                        if (height == 100) {
+                            Utils.sendMessage(playerRef, "Trying to find another safe space.");
+                            tryTeleport(world, playerRef, ref, store, tries + 1);
+                            return;
+                        }
+                    }
+                    Transform transform = playerRef.getTransform().clone();
                     transform.setPosition(new Vector3d(x + 0.5, height + 1, z + 0.5));
                     Teleport teleport = Teleport.createForPlayer(transform);
                     store.addComponent(ref, Teleport.getComponentType(), teleport);
