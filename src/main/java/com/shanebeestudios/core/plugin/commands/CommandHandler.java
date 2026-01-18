@@ -7,6 +7,7 @@ public class CommandHandler {
     public static void registerCommands(CommandRegistry commandRegistry) {
         commandRegistry.registerCommand(new AssetsCommand());
         commandRegistry.registerCommand(new HomeCommand());
+        commandRegistry.registerCommand(new PauseCommand());
         commandRegistry.registerCommand(new RTPCommand());
         commandRegistry.registerCommand(new TestCommand());
         commandRegistry.registerCommand(new TimeCommand());
