@@ -1,9 +1,7 @@
 package com.shanebeestudios.core.plugin;
 
-import com.hypixel.hytale.component.ComponentRegistryProxy;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
-import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.shanebeestudios.core.api.util.Utils;
 import com.shanebeestudios.core.plugin.commands.CommandHandler;
 import com.shanebeestudios.core.plugin.events.EventHandler;
@@ -24,7 +22,6 @@ public class CorePlugin extends JavaPlugin {
         Utils.log("Setting up CorePlugin...");
         CommandHandler.registerCommands(getCommandRegistry());
         EventHandler.registerEvents(this);
-        ComponentRegistryProxy<EntityStore> entityStoreRegistry = getEntityStoreRegistry();
     }
 
     @Override
