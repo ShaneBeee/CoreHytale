@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class PauseListener {
 
     public PauseListener(EventRegistry eventRegistry) {
-        eventRegistry.register(StartWorldEvent.class, "default", this::onStartWorld);
+        eventRegistry.registerGlobal(StartWorldEvent.class, this::onStartWorld);
         eventRegistry.register(PlayerConnectEvent.class, this::onPlayerConnect);
         eventRegistry.register(PlayerDisconnectEvent.class, this::onPlayerDisconnect);
     }
