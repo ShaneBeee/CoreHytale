@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class PauseListener {
 
     public PauseListener(EventRegistry eventRegistry) {
-        eventRegistry.registerGlobal(StartWorldEvent.class, this::onStartWorld);
+        String defaultWorld = HytaleServer.get().getConfig().getDefaults().getWorld();
+        eventRegistry.register(StartWorldEvent.class, defaultWorld, this::onStartWorld);
         eventRegistry.register(PlayerConnectEvent.class, this::onPlayerConnect);
         eventRegistry.register(PlayerDisconnectEvent.class, this::onPlayerDisconnect);
     }
