@@ -7,10 +7,12 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+    maven("https://maven.hytale.com/release")
+    maven("https://maven.hytale.com/pre-release")
 }
 
 dependencies {
-    implementation(files("/Users/ShaneBee/Desktop/Server/Hytale/Assets/HytaleServer.jar"))
+    implementation("com.hypixel.hytale:Server:2026.01.23-6e2d4fc36")
     implementation("org.jetbrains:annotations:26.0.2")
 }
 
