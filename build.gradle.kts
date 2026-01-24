@@ -4,6 +4,7 @@ plugins {
 
 group = "com.shanebeestudios"
 version = "1.0.0"
+val hytaleVersion = "2026.01.23-6e2d4fc36"
 
 repositories {
     mavenCentral()
@@ -12,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.hypixel.hytale:Server:2026.01.23-6e2d4fc36")
+    implementation("com.hypixel.hytale:Server:$hytaleVersion")
     implementation("org.jetbrains:annotations:26.0.2")
 }
 
